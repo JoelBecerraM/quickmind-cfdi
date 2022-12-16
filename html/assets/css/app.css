@@ -1,0 +1,128 @@
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.invisible {
+    display: none;
+    visibility: collapse;
+}
+.visible {
+    display: block;
+    visibility: visible;
+}
+
+.descripcion-direccion {
+    height: 120px;
+    background-color: #06748e;
+}
+
+.row-timbrado {
+    color: black;
+    opacity: 0.5;
+}
+.row-dark-timbrado {
+    color: black;
+    opacity: 0.5;
+    background-color: #d2d2d2;
+}
+
+@media only screen and (max-width: 768px) {
+    .descripcion-direccion {
+        height: 180px;
+        background-color: #06748e;
+    }
+
+    .w-md-20 {
+        width: 20%
+    }
+    .w-md-30 {
+        width: 30%
+    }
+    .w-md-60 {
+        width: 60%
+    }
+    .w-md-70 {
+        width: 70%
+    }
+    .w-md-80 {
+        width: 80%
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+}
+
+.img-logo {
+    background-color: transparent;
+}
+
+.dark-mode .modal-content {
+    background-color: #1e2229;
+}
+.dark-mode .modal-content .modal-header,
+.dark-mode .modal-content .modal-footer {
+    border-color: #424242;
+}
+.dark-mode .form-control {
+    background-color: #282d36;
+    border-color: #282d36;
+}
+
+/*dark-mode overrides*/
+.dark-mode .img-logo {
+    background-color: whitesmoke;
+}
+.dark-mode .modal-content {
+    background-color: #000000 !important;
+}
+.dark-mode .bg-info-light {
+    color: black;
+    background-color: #f8f9fa !important;
+}
+.dark-mode .bg-warning-light {
+    color: black;
+    background-color: #ced4da !important;
+}
+.dark-mode .bg-danger-light {
+    color: black;
+    background-color: #495057 !important;
+}
+.swal2-popup-dark-mode {
+    color: #d9d9d9;
+    background-color: #000000 !important;
+}
+
+.autocomplete {
+    /*the container must be positioned relative:*/
+    position: relative;
+    display: inline-block;
+}
+.autocomplete-items {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-top: none;
+    z-index: 99;
+    /*position the autocomplete items to be the same width as the container:*/
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 400px;
+    overflow-y: scroll;
+    color: #000000 !important;
+    background-color: #fff;
+}
+.autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+}
+.autocomplete-items div:hover {
+    /*when hovering an item:*/
+    background-color: #e9e9e9;
+}
+
+.svg-image {
+    color: currentColor;
+}

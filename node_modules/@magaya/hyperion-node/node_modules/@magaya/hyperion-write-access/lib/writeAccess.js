@@ -1,0 +1,52 @@
+/**
+ * Write access module for hyperion.
+ * @module hyperion-write-access
+ */
+
+ const isValidApi = require('./utils/validateApi');
+
+class WriteAccess {
+    constructor (operation) {
+        this.operation = operation;
+    }
+
+    op (obj) {
+        return new Promise((accept, reject) => {
+            this.operation(obj, (error, result) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    accept(result);
+                }
+            });
+        });
+    }
+};
+
+/**
+ * Write access object, used for updating hyperion objects.
+ * @typedef {Object} WriteAccess
+ * @property {Function} save - Saves an object in the database. Must be called on interface object.
+ * @property {Function} edit - Creates an interface object from a database object. Must be called on database object.
+ */
+
+/**
+ * Constructor function for hyperion write access object.
+ * @param {Object} asyncApi - Hyperion async api object. Should have write methods.
+ * @returns {WriteAccess} Write access object.
+ */
+module.exports = function (asyncApi) {
+    if (!asyncApi) {
+        throw new Error('asyncApi is undefined or null');
+    }
+
+    if (!isValidApi(asyncApi)) {
+        throw new Error('invalid asyncyApi provided');
+    }
+
+    const edit = new WriteAccess(asyncApi.editAsync);
+    const save = new WriteAccess(asyncApi.saveAsync);
+
+    this.save = obj => save.op(obj);
+    this.edit = obj => edit.op(obj);
+};

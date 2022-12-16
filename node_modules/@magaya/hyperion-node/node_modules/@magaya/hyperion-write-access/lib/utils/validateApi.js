@@ -1,0 +1,7 @@
+const mandatoryMethods = [
+    'saveAsync',
+    'editAsync'
+];
+
+module.exports = asyncApi => 
+    mandatoryMethods.every(m => asyncApi[m]);

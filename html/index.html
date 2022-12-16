@@ -1,0 +1,463 @@
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+      <!-- Title and Meta -->
+      <title>PDVSolutions - Carta Porte</title>
+      <meta name="description" content="Created by joelbecerram">
+      <meta name="author" content="PDVSolutions">
+      <meta name="robots" content="noindex, nofollow">
+      <!-- END Title and Meta -->
+
+      <!-- Icons -->
+      <link rel="shortcut icon" type="image/png" href="assets/media/favicons/favicon.png">
+      <link rel="icon" type="image/png" sizes="192x192" href="assets/media/favicons/favicon-192x192.png">
+      <link rel="apple-touch-icon" sizes="180x180" href="assets/media/favicons/apple-touch-icon-180x180.png">
+      <!-- END Icons -->
+
+      <!-- Stylesheets -->
+      <!-- Page JS Plugins CSS go here -->
+
+      <!-- Fonts and Codebase framework -->
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800&display=swap">
+      <link rel="stylesheet" id="css-main" href="assets/css/codebase.min.css">
+      <link rel="stylesheet" href="assets/css/plugins/dataTables.bootstrap5.min.css">
+      <link rel="stylesheet" href="assets/css/plugins/sweetalert2.min.css">
+      <link rel="stylesheet" href="assets/css/plugins/select2.min.css">
+
+      <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
+      <!-- <link rel="stylesheet" id="css-theme" href="assets/css/themes/flat.min.css"> -->
+      <link rel="stylesheet" href="assets/css/app.css">
+      <!-- END Stylesheets -->
+      <script type="text/javascript">
+        var index = "index.html";
+        var loggeado = true;
+        var mobile = false;
+        var darkmode = false;
+        var usuario = {            
+            avatar: "assets/media/avatars/avatars-04.png",
+            permisos: ["",""],
+        };
+        var ultimosdias = true;
+    </script>
+
+  </head>
+  <body>
+      <!-- Page Container -->
+      <!--
+        Available classes for #page-container:
+
+        GENERIC
+
+          'remember-theme'                            Remembers active color theme and dark mode between pages using localStorage when set through
+                                                      - Theme helper buttons [data-toggle="theme"],
+                                                      - Layout helper buttons [data-toggle="layout" data-action="dark_mode_[on/off/toggle]"]
+                                                      - ..and/or Codebase.layout('dark_mode_[on/off/toggle]')
+
+        SIDEBAR & SIDE OVERLAY
+
+          'sidebar-r'                                 Right Sidebar and left Side Overlay (default is left Sidebar and right Side Overlay)
+          'sidebar-mini'                              Mini hoverable Sidebar (screen width > 991px)
+          'sidebar-o'                                 Visible Sidebar by default (screen width > 991px)
+          'sidebar-o-xs'                              Visible Sidebar by default (screen width < 992px)
+          'sidebar-dark'                              Dark themed sidebar
+
+          'side-overlay-hover'                        Hoverable Side Overlay (screen width > 991px)
+          'side-overlay-o'                            Visible Side Overlay by default
+
+          'enable-page-overlay'                       Enables a visible clickable Page Overlay (closes Side Overlay on click) when Side Overlay opens
+
+          'side-scroll'                               Enables custom scrolling on Sidebar and Side Overlay instead of native scrolling (screen width > 991px)
+
+        HEADER
+
+          ''                                          Static Header if no class is added
+          'page-header-fixed'                         Fixed Header
+
+        HEADER STYLE
+
+          ''                                          Classic Header style if no class is added
+          'page-header-modern'                        Modern Header style
+          'page-header-dark'                          Dark themed Header (works only with classic Header style)
+          'page-header-glass'                         Light themed Header with transparency by default
+                                                      (absolute position, perfect for light images underneath - solid light background on scroll if the Header is also set as fixed)
+          'page-header-glass page-header-dark'        Dark themed Header with transparency by default
+                                                      (absolute position, perfect for dark images underneath - solid dark background on scroll if the Header is also set as fixed)
+
+        MAIN CONTENT LAYOUT
+
+          ''                                          Full width Main Content if no class is added
+          'main-content-boxed'                        Full width Main Content with a specific maximum width (screen width > 1200px)
+          'main-content-narrow'                       Full width Main Content with a percentage width (screen width > 1200px)
+
+        DARK MODE
+
+          'sidebar-dark page-header-dark dark-mode'   Enable dark mode (light sidebar/header is not supported with dark mode)
+      -->
+      <div id="page-container" class="sidebar-o sidebar-o-xs enable-page-overlay page-header-modern main-content-boxed remember-theme">
+          <!-- Page loader -->
+          <!-- If #page-loader markup and also the "show" class is added, the loading screen will be enabled and auto hide once the page loads -->
+          <!-- <div id="page-loader" class="show"></div> -->
+
+          
+<aside id="side-overlay">
+  <div class="content-header">
+      <a class="img-link me-2" href="javascript:void(0)">
+          <img class="img-avatar" src="" alt="Avatar"
+               onerror="if (usuario&&usuario.avatar&&usuario.avatar!=='') this.src=usuario.avatar;">
+      </a>
+      <a class="link-fx text-body-color-dark fw-semibold fs-sm" href="javascript:void(0)">
+          pdv.solutions
+      </a>
+      <button type="button" class="btn btn-sm btn-alt-danger ms-auto" data-toggle="layout" data-action="side_overlay_close">
+          <i class="fa fa-fw fa-times"></i>
+      </button>
+  </div>
+  <div class="content-side">
+      <div class="block pull-t pull-x">
+          <div class="block-content block-content-full block-content-sm bg-body-light">
+              <form>
+                  <div class="input-group">
+                      <input type="text" class="form-control" id="side-overlay-search" name="side-overlay-search" placeholder="Search..">
+                      <button type="submit" class="btn btn-secondary px-2">
+                          <i class="fa fa-search"></i>
+                      </button>
+                  </div>
+              </form>
+          </div>
+      </div>
+      <div class="block pull-x">
+          <div class="block-content block-content-full block-content-sm bg-body-light">
+              <div class="row">
+                  <div class="col-4">
+                      <div class="fs-sm fw-semibold text-uppercase text-muted">Stat</div>
+                      <div class="fs-4">100</div>
+                  </div>
+                  <div class="col-4">
+                      <div class="fs-sm fw-semibold text-uppercase text-muted">Stat</div>
+                      <div class="fs-4">200</div>
+                  </div>
+                  <div class="col-4">
+                      <div class="fs-sm fw-semibold text-uppercase text-muted">Stat</div>
+                      <div class="fs-4">300</div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="block pull-x">
+          <div class="block-header bg-body-light">
+              <h3 class="block-title">Title</h3>
+              <div class="block-options">
+                  <button type="button" class="btn-block-option" data-toggle="block-option" data-action="state_toggle" data-action-mode="demo">
+                      <i class="si si-refresh"></i>
+                  </button>
+                  <button type="button" class="btn-block-option" data-toggle="block-option" data-action="content_toggle"></button>
+              </div>
+          </div>
+          <div class="block-content">
+              <p>Content...</p>
+          </div>
+      </div>
+  </div>
+</aside>
+          <!-- Sidebar -->
+<nav id="sidebar">
+  <!-- Sidebar Content -->
+  <div class="sidebar-content">
+      <!-- Sidebar Header -->
+      <div class="content-header justify-content-lg-center cursor-pointer img-logo"
+           onclick="viewMain();">
+          <div class="smini-hidden">
+              <img class="img-fluid" alt="logo" src="assets/media/various/logo-sm.png">
+          </div>
+          <div>
+              <button type="button" class="btn btn-sm btn-alt-danger d-lg-none" data-toggle="layout" data-action="sidebar_close">
+                  <i class="fa fa-fw fa-times"></i>
+              </button>
+          </div>
+      </div>
+      <!-- END Sidebar Header -->
+
+      <!-- Sidebar Scroll -->
+      <div class="js-sidebar-scroll">
+          <div class="content-side content-side-user px-0 py-0">
+              <div class="smini-visible-block animated fadeIn px-3">
+                  <img class="img-avatar" src="" alt="Avatar"
+                       onerror="if (usuario&&usuario.avatar&&usuario.avatar!=='') this.src=usuario.avatar;">
+              </div>
+              <div class="smini-hidden text-center mx-auto">
+                  <a class="img-link">
+                      <img class="img-avatar" src="" alt="Avatar"
+                           onerror="if (usuario&&usuario.avatar&&usuario.avatar!=='') this.src=usuario.avatar;">
+                  </a>
+                  <ul class="list-inline mt-3 mb-0">
+                      <li class="list-inline-item">
+                          <a class="link-fx text-dual fs-sm fw-semibold">PDVSolutions</a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+          <div class="content-side content-side-full pos-relative">
+              <!-- Side Navigation -->
+              <ul class="nav-main">
+                  <li class="nav-main-heading">Administraci&oacute;n</li>                  
+                  <li class="nav-main-item">
+                      <a class="nav-main-link cursor-pointer" onclick="viewConfiguracion();">
+                          <span class="nav-main-link-name">Configuraci&oacute;n</span>
+                      </a>
+                </li>
+              </ul>
+              <!-- END Side Navigation -->
+          </div>
+          <!-- Sidebar Footer  -->
+          <div class="content-header justify-content-lg-end">
+              <div class="font-size-sm font-w600 fs-xs text-muted">v.1.0 - 26 Noviembre 2022</div>
+          </div>
+          <!-- END Sidebar Footer -->
+      </div>
+      <!-- END Sidebar Scroll -->
+  </div>
+  <!-- Sidebar Content -->
+</nav>
+<!-- END Sidebar -->
+
+          <!-- Header -->
+<header id="page-header">
+  <div class="content-header">
+      <div class="space-x-1">
+          <!-- Toggle Sidebar -->
+          <button type="button" class="btn btn-sm btn-alt-secondary" data-toggle="layout" data-action="sidebar_toggle"
+                  data-bs-toggle="tooltip" data-bs-placement="right" title="Barra Lateral de Opciones">
+              <i class="fa fa-fw fa-bars"></i>
+          </button>
+          <!-- END Toggle Sidebar -->
+          <button type="button" class="btn btn-sm btn-alt-secondary" data-toggle="layout" data-action="header_search_on"
+                  data-bs-toggle="tooltip" data-bs-placement="right" title="B&uacute;squeda">
+              <i class="fa fa-fw fa-search"></i>
+          </button>
+          <div class="dropdown d-inline-block"
+               data-bs-toggle="tooltip" data-bs-placement="right" title="Paleta de Colores">
+              <button type="button" class="btn btn-sm btn-alt-secondary" id="page-header-themes-dropdown"
+                      data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-paint-brush"></i>
+              </button>
+              <div class="dropdown-menu dropdown-menu-lg p-0" aria-labelledby="page-header-themes-dropdown">
+                  <div class="p-3 bg-body-light rounded-top">
+                      <h5 class="h6 text-center mb-0">
+                          Colores
+                      </h5>
+                  </div>
+                  <div class="p-3">
+                      <div class="row g-0 text-center">
+                          <div class="col-2">
+                              <a class="text-default" data-toggle="theme" data-theme="default" href="javascript:void(0)">
+                                  <i class="fa fa-2x fa-circle"></i>
+                              </a>
+                          </div>
+                          <div class="col-2">
+                              <a class="text-elegance" data-toggle="theme" data-theme="assets/css/themes/elegance.min.css" href="javascript:void(0)">
+                                  <i class="fa fa-2x fa-circle"></i>
+                              </a>
+                          </div>
+                          <div class="col-2">
+                              <a class="text-pulse" data-toggle="theme" data-theme="assets/css/themes/pulse.min.css" href="javascript:void(0)">
+                                  <i class="fa fa-2x fa-circle"></i>
+                              </a>
+                          </div>
+                          <div class="col-2">
+                              <a class="text-flat" data-toggle="theme" data-theme="assets/css/themes/flat.min.css" href="javascript:void(0)">
+                                  <i class="fa fa-2x fa-circle"></i>
+                              </a>
+                          </div>
+                          <div class="col-2">
+                              <a class="text-corporate" data-toggle="theme" data-theme="assets/css/themes/corporate.min.css" href="javascript:void(0)">
+                                  <i class="fa fa-2x fa-circle"></i>
+                              </a>
+                          </div>
+                          <div class="col-2">
+                              <a class="text-earth" data-toggle="theme" data-theme="assets/css/themes/earth.min.css" href="javascript:void(0)">
+                                  <i class="fa fa-2x fa-circle"></i>
+                              </a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <button type="button" class="btn btn-sm btn-alt-secondary" onclick="toggleDarkMode();"
+                  data-bs-toggle="tooltip" data-bs-placement="right" title="Activa Modo Oscuro">
+              <i class="fa fa-fw fa-burn"></i>
+          </button>
+      </div>
+      <div class="space-x-1">
+          <!-- div class="dropdown d-inline-block">
+              <button type="button" class="btn btn-sm btn-alt-secondary" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-user d-sm-none"></i>
+                  <span class="d-none d-sm-inline-block fw-semibold">Joel Becerra</span>
+                  <i class="fa fa-angle-down opacity-50 ms-1"></i>
+              </button>
+              <div class="dropdown-menu dropdown-menu-md dropdown-menu-end p-0" aria-labelledby="page-header-user-dropdown">
+                  <div class="px-2 py-3 bg-body-light rounded-top">
+                      <h5 class="h5 text-center mb-0">Joel Becerra</h5>
+                      <h6 class="h6 text-center mb-0">joelbecerram@gmail.com</h6>
+                  </div>
+                  <div class="p-2">
+                      <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1" onclick="perfilUsuario();">
+                          <span>Perfil</span>
+                          <i class="fa fa-fw fa-user opacity-25"></i>
+                      </a>                      
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1" onclick="cerrarSesion();">
+                          <span>Cerrar Sesi&oacute;n</span>
+                          <i class="fa fa-fw fa-sign-out-alt opacity-25"></i>
+                      </a>
+                  </div>
+              </div>
+          </div -->
+          <!-- button type="button" class="btn btn-sm btn-alt-secondary" onclick="cerrarSesion();"
+                  data-bs-toggle="tooltip" data-bs-placement="left" title="Cerrar Sesi&oacute;n">
+              <i class="fa fa-fw fa-sign-out-alt"></i>
+          </button -->
+          <!-- button type="button" class="btn btn-sm btn-alt-secondary" data-toggle="layout" data-action="side_overlay_toggle"
+                  data-bs-toggle="tooltip" data-bs-placement="left" title="Estad&iacute;sticas de Usuario">
+              <i class="fa fa-fw fa-stream"></i>
+          </button -->
+      </div>
+  </div>
+  <div id="page-header-search" class="overlay-header bg-body-extra-light">
+      <div class="content-header">
+          <form class="w-100">
+              <div class="input-group">
+                  <button type="button" class="btn btn-secondary" data-toggle="layout" data-action="header_search_off">
+                      <i class="fa fa-fw fa-times"></i>
+                  </button>
+                  <input type="text" class="form-control" placeholder="Buscar o presione ESC ..." id="page-header-search-input" name="page-header-search-input">
+                  <button type="submit" class="btn btn-secondary">
+                      <i class="fa fa-fw fa-search"></i>
+                  </button>
+              </div>
+          </form>
+      </div>
+  </div>
+  <div id="page-header-loader" class="overlay-header bg-primary">
+      <div class="content-header">
+          <div class="w-100 text-center">
+              <i class="far fa-sun fa-spin text-white"></i>
+          </div>
+      </div>
+  </div>
+</header>
+<!-- END Header -->
+
+
+          <!-- Main Container -->
+          <main id="main-container">
+          </main>
+          <!-- END Main Container -->
+
+          <!-- Footer -->
+<footer id="page-footer">
+  <div
+      class="content content-full font-size-sm d-flex flex-column flex-sm-row justify-content-sm-between text-center text-sm-left">
+      <div class="py-2 py-sm-0">
+          <strong>Carta Porte - Portal</strong> &copy; <span data-toggle="year-copy"></span>
+      </div>
+      <div class="py-2 py-sm-0">
+          Creado por <a class="font-w600" href="https://pdv.solutions/cartaporte">PDVSolutions</a>
+      </div>
+  </div>
+</footer>
+<!-- END Footer -->
+
+
+          <!-- Modals -->
+          <div id="modalDialogNavigation" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalDialogNavigationLabel" aria-hidden="true">
+              <div id="modalDialogNavigationDocument" class="modal-dialog" role="document">
+                  <div class="modal-content">
+                      <div class="block block-rounded shadow-none mb-0">
+                          <div id="modalDialogNavigationHeader" class="block-header block-header-default bg-primary text-white">
+                              <h3 id="modalDialogNavigationTitle" class="block-title">Title</h3>
+                              <div class="block-options">
+                                  <button type="button" class="btn-block-option text-white" data-bs-dismiss="modal" aria-label="Close">
+                                      <i class="fa fa-times"></i>
+                                  </button>
+                              </div>
+                          </div>
+                          <div id="modalDialogNavigationBody" class="block-content">
+                          </div>
+                          <div id="modalDialogNavigationFooter" class="block-content block-content-full block-content-sm text-end border-top p-4">
+                              <button id="modalDialogNavigationCancel" type="button" class="btn btn-alt-secondary">
+                                  <span class="fa fa-cancel" aria-hidden="true"></span>&nbsp;Cancelar
+                              </button>
+                              <button id="modalDialogNavigationPrev" type="button" class="btn btn-alt-info">
+                                  <span class="fa fa-arrow-left" aria-hidden="true"></span>&nbsp;Anterior
+                              </button>
+                              <button id="modalDialogNavigationNext" type="button" class="btn btn-alt-info">
+                                  <span class="fa fa-arrow-right" aria-hidden="true"></span>&nbsp;Siguiente
+                              </button>
+
+                              <button id="modalDialogNavigationAccept" type="button" class="btn btn-alt-primary">
+                                  <span class="fa fa-check" aria-hidden="true"></span>&nbsp;Aceptar
+                              </button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div id="modalDialogBusquedas" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalDialogBusquedasLabel" aria-hidden="true">
+              <div id="modalDialogBusquedasDocument" class="modal-dialog" role="document">
+                  <div class="modal-content">
+                      <div class="block block-rounded shadow-none mb-0">
+                          <div id="modalDialogBusquedasHeader" class="block-header block-header-default bg-primary text-white">
+                              <h3 id="modalDialogBusquedasTitle" class="block-title">Title</h3>
+                              <div class="block-options">
+                                  <button type="button" class="btn-block-option text-white" data-bs-dismiss="modal" aria-label="Close">
+                                      <i class="fa fa-times"></i>
+                                  </button>
+                              </div>
+                          </div>
+                          <div id="modalDialogBusquedasBody" class="block-content">
+                          </div>
+                          <div id="modalDialogBusquedasFooter" class="block-content block-content-full block-content-sm text-end border-top p-4">
+                              <button id="modalDialogBusquedasCancel" type="button" class="btn btn-alt-secondary">
+                                  <span class="fa fa-cancel" aria-hidden="true"></span>&nbsp;Cancelar
+                              </button>
+                              <button id="modalDialogBusquedasAccept" type="button" class="btn btn-alt-primary">
+                                  <span class="fa fa-check" aria-hidden="true"></span>&nbsp;Aceptar
+                              </button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!-- END Modals -->
+
+      </div>
+      <!-- END Page Container -->
+
+      <!-- Codebase JS -->
+      <script src="assets/js/lib/codebase.app.min.js"></script>
+      <!-- jQuery (Needed only if you would like to use a jQuery based plugin in your page) -->
+      <script src="assets/js/lib/jquery.min.js"></script>
+      <!-- jQuery Plugins -->
+      <script src="assets/js/plugins/jquery.appear.min.js"></script>
+      <script src="assets/js/plugins/jquery.validate.min.js"></script>
+      <script src="assets/js/plugins/jquery.dataTables.min.js"></script>
+      <script src="assets/js/plugins/jquery.fileDownload.js"></script>
+      <script src="assets/js/plugins/dataTables.bootstrap5.min.js"></script>
+      <script src="assets/js/plugins/dataTables.rowGroup.min.js"></script>
+      <!-- Page JS Plugins + Page JS Code -->
+      <script src="assets/js/plugins/bootstrap-notify.min.js"></script>
+      <script src="assets/js/plugins/sweetalert2.min.js"></script>
+      <script src="assets/js/plugins/chart.min.js"></script>
+      <script src="assets/js/plugins/select2.full.min.js"></script>
+      <script src="assets/js/dom.js"></script>
+      <script src="assets/js/app.js"></script>
+      <script>
+          Codebase.helpersOnLoad(["jq-appear","jq-notify","jq-validation","jq-select2"]);
+          $(document).ready(function() {
+              initApp();
+          });
+      </script>
+  </body>
+</html>

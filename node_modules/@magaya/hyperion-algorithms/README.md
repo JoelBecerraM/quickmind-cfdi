@@ -1,0 +1,36 @@
+# Hyperion-Algorithms - Base Algorithms for Hyperion
+
+## Building blocks for Hyperion
+
+Hyperion-Algorithms offers a set of functions for working with hyperion lists and working with documents.
+
+```js
+const Algorithms = require('hyperion-algorithms');
+const connection = require('{get hyperion somehow}');
+
+const algo = new Algorithms(connection.async);
+
+algo.select(connection.hyperion.using(connection.hyperion.dbx.Shipping.Booking.ListByTime))
+    .where(booking => booking.GUID !== undefined)
+    .project(booking => ({
+        id: booking.GUID,
+        createdOn: new Date(booking.CreatedOn)
+    }))
+    .then(bookings => console.log(bookings));
+```
+
+## Algorithms
+- forEach
+- transform
+- accumulate
+- anyOf
+- allOf
+- noneOf
+- find
+- findFirst
+- collect
+- select
+
+---
+
+### Descriptions coming soon...

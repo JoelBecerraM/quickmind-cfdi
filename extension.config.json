@@ -1,0 +1,65 @@
+{
+    "id": {
+        "company": "quickmind",
+        "name": "cfdi"
+    },
+    "version": "0.0.1",
+    "name": "cfdi",
+    "description": "Quickmind extension for CFDI document.",
+    "tags": ["cfdi", "cartaporte"], 
+    "minimumMagayaVersion": "11.3.0",
+    "type": "httpServer",
+    "license": "MIT",
+    "install": {
+        "engine": "node",
+        "manager": "npm",
+        "name": "quickmind-cfdi",
+        "maintenance": "automatic"
+    },
+    "launch": {
+        "engine":"pm2",
+        "cluster":true,
+        "main":"index.js"
+    },
+    "interface": {
+        "title": "CFDI",
+        "sections": {            
+            "config": {
+                "menuEntries": [{
+                    "category": "Config",
+                    "title": "Configuracion",
+                    "selection": "single",
+                    "type": "url",
+                    "method": "GET",
+                    "path": "/index.html?view=config",
+                    "pathType": "cs-relative",
+                    "launch": "internal"
+                }
+            ]},
+            "invoice": {
+                "menuEntries": [{
+                    "category": "Actions",
+                    "title": "Timbrar",
+                    "selection": "single",
+                    "type": "url",
+                    "method": "GET",
+                    "path": "/index.html?view=invoice&op={operation-guid}",
+                    "pathType":"cs-relative",
+                    "launch": "internal"
+                }
+            ]},
+            "shipment": {
+                "menuEntries" : [{
+                    "category": "Actions",
+                    "title": "Timbrar",
+                    "selection": "single",
+                    "type": "url", 
+                    "method": "GET",
+                    "path": "/index.html?view=shipment&op={operation-guid}",
+                    "pathType": "cs-relative",
+                    "launch": "internal"
+                }
+            ]}
+        }
+    }
+}

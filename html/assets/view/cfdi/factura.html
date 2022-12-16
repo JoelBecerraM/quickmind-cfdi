@@ -1,0 +1,114 @@
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="catalogo-block" class="block block-rounded">
+                <div class="block-header block-header-default">
+                    <h3 class="block-title">Factura <!-- small>Subtitle</small --></h3>
+                    <div class="block-options">
+                        <button type="button" class="btn-block-option" onclick="Codebase.block('fullscreen_toggle', '#catalogo-block');">
+                            <i class="si si-size-fullscreen"></i>
+                        </button>
+                        <button type="button" class="btn-block-option"
+                                onclick="Codebase.block('content_toggle', '#catalogo-block');
+                                        var $arrow = $('#catalogo-block-arrow');
+                                        var isArrowUp = $arrow.hasClass('si-arrow-up');
+                                        $arrow.removeClass(isArrowUp ? 'si-arrow-up' : 'si-arrow-down');
+                                        $arrow.addClass(isArrowUp ? 'si-arrow-down' : 'si-arrow-up');">
+                            <i id="catalogo-block-arrow" class="si si-arrow-up"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="block-content">
+                    <form id="datos-form">                        
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mb-4">
+                                    <div class="input-group">
+                                        <span id="buscar-span" class="input-group-text w-md-20 col-lg-1 justify-content-center cursor-pointer">
+                                            <i class="fa fa-search"></i>
+                                        </span>
+                                        <div class="form-floating w-md-80 col-lg-11">
+                                            <input type="text" class="form-control text-uppercase" id="compania" name="compania" placeholder="Compania" autocomplete="off" data-record=''>
+                                            <label class="form-label" for="compania">Compania</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating mb-4">
+                                    <input type="text" class="form-control" id="guid" name="guid" readonly data-record=''>
+                                    <label class="form-label" for="guid">GUID</label>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-floating mb-4">
+                                    <input type="text" class="form-control" id="rfcreceptor" name="rfcreceptor" placeholder="RFC Receptor" autocomplete="off" data-record=''>
+                                    <label class="form-label" for="rfcreceptor">RFC Receptor</label>
+                                </div>
+                            </div>
+                            <div class="col-8">
+                                <div class="form-floating mb-4">
+                                    <input type="text" class="form-control" id="nombrereceptor" name="nombrereceptor" placeholder="Nombre Receptor" autocomplete="off">
+                                    <label class="form-label" for="nombrereceptor">Nombre Receptor</label>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-floating mb-4">
+                                    <input type="text" class="form-control" id="tipodocumento" name="tipodocumento" readonly>
+                                    <label class="form-label" for="tipodocumento">Tipo Documento</label>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-floating mb-4">
+                                    <input type="text" class="form-control" id="documento" name="documento" readonly data-record=''>
+                                    <label class="form-label" for="documento">Documento</label>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-floating mb-4">
+                                    <input type="text" class="form-control" id="fecha" name="fecha" readonly>
+                                    <label class="form-label" for="fecha">Fecha</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating mb-4">
+                                    <input type="text" class="form-control" id="uuid" name="uuid" readonly data-record=''>
+                                    <label class="form-label" for="uuid">UUID</label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <hr>
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-6">
+                                    <button class="btn btn-outline-primary" id="btn-pdf" disabled>
+                                        <span class="fa fa-file-pdf"></span>&nbsp;PDF
+                                    </button>
+                                    <button class="btn btn-outline-primary" id="btn-xml" disabled>
+                                        <span class="fa fa-code"></span>&nbsp;XML
+                                    </button>
+                                </div>
+                                <div class="col-6 text-end">                
+                                    <!-- button type="button" class="btn btn-outline-primary" id="btn-regresar" onclick="window.history.back();">
+                                        <span class="fa fa-step-backward" aria-hidden="true"></span>&nbsp;Regresar
+                                    </button -->
+                                    <!-- button type="button" class="btn btn-outline-primary" id="btn-limpiar">
+                                        <span class="fa fa-eraser" aria-hidden="true"></span>&nbsp;Limpiar
+                                    </button -->
+                                    <button type="button" class="btn btn-outline-primary" id="btn-timbrar">
+                                        <span class="fa fa-stamp" aria-hidden="true"></span>&nbsp;Timbrar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="notify-div" class="block-content block-content-full block-content-sm bg-body-light fs-sm">
+                    Listo.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

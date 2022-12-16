@@ -1,0 +1,217 @@
+<div class="bg-image bg-image-bottom" style="background-image: url('assets/media/photos/photo13@2x.jpg');">
+    <div class="bg-black-75 py-4">
+        <div class="content content-full text-center">
+            <div class="mb-3">
+                <a class="img-link" href="be_pages_generic_profile.html">
+                    <img class="img-avatar img-avatar96 img-avatar-thumb" src="" alt="Avatar" 
+                        onerror="if (usuario&&usuario.avatar&&usuario.avatar!=='') this.src=usuario.avatar;">
+                </a>
+            </div>
+            <h1 id="perfil-nombre" class="h3 text-white fw-bold mb-2">&nbsp;</h1>
+            <h2 id="perfil-descripcion" class="h5 text-white-75">&nbsp;</h2>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <div class="block block-rounded">
+        <div class="block-header block-header-default">
+            <h3 class="block-title">
+                <i class="fa fa-user-circle me-1 text-muted"></i> Perfil de Usuario
+            </h3>
+        </div>
+        <div class="block-content">
+            <div class="row items-push">
+                <div class="col-lg-3">
+                    <p class="text-muted">
+                        Su informaci&oacute;n importante.
+                    </p>
+                </div>
+                <div class="col-lg-7 offset-lg-1">
+                    <form id="datos-form">
+                        <input type="hidden" id="compania" name="compania">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-floating mb-4">
+                                    <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuario" readonly>
+                                    <label class="form-label" for="usuario">Usuario</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating mb-4">
+                                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" readonly>
+                                    <label class="form-label" for="nombre">Nombre</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating mb-4">
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Correo Electr&oacute;nico" readonly>
+                                    <label class="form-label" for="email">Correo Electr&oacute;nico</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating mb-4">
+                                    <input type="text" class="form-control" id="avatar" name="avatar" readonly>
+                                    <label class="form-label" for="avatar">Avatar</label>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 text-center">
+                                <div class="form-floating mb-4">
+                                    <img id="avatar-img" src="" alt="Avatar" width="80" height="80">
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 text-center">
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-primary dropdown-toggle" id="btnGroupDropAvatars"
+                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cambia Avatar</button>
+                                    <div class="dropdown-menu" aria-labelledby="btnGroupDropAvatars">
+                                        <a class="dropdown-item" href="javascript:void(0)" onclick="seleccionaAvatar('01');">
+                                            <img src="assets/media/avatars/avatars-01.png" alt="Avatar" width="40" height="40"> 01
+                                        </a>
+                                        <a class="dropdown-item" href="javascript:void(0)" onclick="seleccionaAvatar('02');">
+                                            <img src="assets/media/avatars/avatars-02.png" alt="Avatar" width="40" height="40"> 02
+                                        </a>
+                                        <!-- div class="dropdown-divider"></div -->
+                                        <a class="dropdown-item" href="javascript:void(0)" onclick="seleccionaAvatar('03');">
+                                            <img src="assets/media/avatars/avatars-03.png" alt="Avatar" width="40" height="40"> 03
+                                        </a>
+                                        <a class="dropdown-item" href="javascript:void(0)" onclick="seleccionaAvatar('04');">
+                                            <img src="assets/media/avatars/avatars-04.png" alt="Avatar" width="40" height="40"> 04
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="mb-4">
+                        <button type="button" class="btn btn-outline-primary" onclick="actualizarDatos();">
+                            <span class="fa fa-save" aria-hidden="true"></span>&nbsp;Guardar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="block block-rounded">
+        <div class="block-header block-header-default">
+            <h3 class="block-title">
+                <i class="fa fa-asterisk me-1 text-muted"></i> Cambiar Contrase&ntilde;a
+            </h3>
+        </div>
+        <div class="block-content">
+            <div class="row items-push">
+                <div class="col-lg-3">
+                    <p class="text-muted">
+                        Cambiar su contrase&ntilde;a es la forma sencilla de mantener su cuenta segura.
+                        <br><br>Su contrase&ntilde;a debe de ser m&iacute;nimo de 8 caracteres, que lleve una may&uacute;scula y un car&aacute;cter especial.
+                </div>
+                <div class="col-lg-7 offset-lg-1">
+                    <form id="password-form">
+                        <input type="hidden" name="compania">
+                        <input type="hidden" name="usuario">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="input-group mb-4">
+                                    <div class="form-floating w-md-80 col-lg-10">
+                                        <input type="password" class="form-control" id="password" name="password" placeholder="Contrase&ntilde;a" autocomplete="off">
+                                        <label class="form-label" for="password">* Contrase&ntilde;a</label>
+                                    </div>
+                                    <button type="button" class="btn btn-outline-secondary"
+                                            onclick="togglePassword('password');">
+                                        <i class="fa fa-eye-slash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-4">
+                                    <div class="form-floating w-md-80 col-lg-10">
+                                        <input type="password" class="form-control" id="newpassword" name="newpassword" placeholder="Nueva Contrase&ntilde;a" autocomplete="off">
+                                        <label class="form-label" for="newpassword">* Nueva Contrase&ntilde;a</label>
+                                    </div>
+                                    <button type="button" class="btn btn-outline-secondary"
+                                            onclick="togglePassword('newpassword');">
+                                        <i class="fa fa-eye-slash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-4">
+                                    <div class="form-floating w-md-80 col-lg-10">
+                                        <input type="password" class="form-control" id="newpassword2" name="newpassword2" placeholder="Confirmar Nueva Contrase&ntilde;a" autocomplete="off">
+                                        <label class="form-label" for="newpassword2">* Confirmar Nueva Contrase&ntilde;a</label>
+                                    </div>
+                                    <button type="button" class="btn btn-outline-secondary"
+                                            onclick="togglePassword('newpassword2');">
+                                        <i class="fa fa-eye-slash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="mb-4">
+                        <button type="button" class="btn btn-outline-primary" onclick="actualizarPassword();">
+                            <span class="fa fa-check-circle" aria-hidden="true"></span>&nbsp;Actualizar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- div class="block block-rounded">
+        <div class="block-header block-header-default">
+            <h3 class="block-title">
+                <i class="fa fa-share-alt me-1 text-muted"></i> Connections
+            </h3>
+        </div>
+        <div class="block-content">
+            <form action="be_pages_generic_profile.edit.html" method="POST" onsubmit="return false;">
+                <div class="row items-push">
+                    <div class="col-lg-3">
+                        <p class="text-muted">
+                            You can connect your account to third party networks to get extra features.
+                        </p>
+                    </div>
+                    <div class="col-lg-7 offset-lg-1">
+                        <div class="row mb-4">
+                            <div class="col-sm-10 col-md-8 col-xl-6">
+                                <a class="btn w-100 text-start btn-alt-danger bg-white" href="javascript:void(0)">
+                                    <i class="fab fa-google me-1"></i> john_doe
+                                </a>
+                            </div>
+                            <div class="col-sm-12 col-md-4 col-xl-6 mt-1 d-flex align-items-center">
+                                <a class="text-muted" href="javascript:void(0)">
+                                    <i class="fa fa-pencil-alt me-1"></i> Edit Google Connection
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-sm-10 col-md-8 col-xl-6">
+                                <a class="btn w-100 text-start btn-alt-info bg-white" href="javascript:void(0)">
+                                    <i class="fa fab fa-twitter me-1"></i> @john_doe
+                                </a>
+                            </div>
+                            <div class="col-sm-12 col-md-4 col-xl-6 mt-1 d-md-flex align-items-md-center">
+                                <a class="text-muted" href="javascript:void(0)">
+                                    <i class="fa fa-pencil-alt me-1"></i> Edit Twitter Connection
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-sm-10 col-md-8 col-xl-6">
+                                <a class="btn w-100 text-start btn-alt-primary" href="javascript:void(0)">
+                                    <i class="fab fa-facebook-f me-1"></i> Connect to Facebook
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-sm-10 col-md-8 col-xl-6">
+                                <a class="btn w-100 text-start btn-alt-warning" href="javascript:void(0)">
+                                    <i class="fab fa-instagram me-1"></i> Connect to Instagram
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div -->
+</div>

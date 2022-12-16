@@ -1,0 +1,19 @@
+{
+  "name": "quickmind-cfdi",
+  "version": "0.0.1",
+  "description": "Quickmind CFDI para Magaya",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "npm link @magaya/hyperion-node",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Quickmind",
+  "license": "MIT",
+  "dependencies": {
+    "@magaya/hyperion-node": "^11.56.19",
+    "@magaya/extension-fs-helper": "0.0.5",
+    "commander": "^7.2.0",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {}
+}
