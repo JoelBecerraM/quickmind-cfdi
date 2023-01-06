@@ -1,5 +1,5 @@
 {
-    "args": "-p 30678 -r /ext/quickmind/cfdi -s Magaya_CS_Default -g --network-id=37680 --connection-string=EC2AMAZ-N337JS4:6110",
+    "args": "-p 1014 -r /ext/quickmind/cfdi -s Magaya_CS_Default -g --network-id=37680 --connection-string=EC2AMAZ-N337JS4:6110",
     "exec_mode": "cluster",
     "instances": 1,
     "name": "Magaya_CS_Default.quickmind.cfdi",

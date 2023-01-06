@@ -279,8 +279,9 @@ async function getShipmentData(dbx, algorithm, s) {
 }
 
 async function getShipmentsByGuid(hyperion, guid) {
-    const list = hyperion.dbx.Shipping.Shipment.ListByTime;
-    const found = await hyperion.algorithm.find(hyperion.dbx.using(list))
+    const list = hyperion.dbx.Shipping.Shipment.ListByGuid;
+    const found = await hyperion.algorithm.find(hyperion.dbx.using(list)
+        .from(guid).to(guid))
         .where(current => current.GUID === guid);
     let shipments = [];
     if (found) {
@@ -290,20 +291,10 @@ async function getShipmentsByGuid(hyperion, guid) {
     return shipments;
 }
 
-async function getShipments(hyperion) {
-    const list = hyperion.dbx.Shipping.Shipment.ListByTime;
-    let shipments = [];
-    await algorithm.forEach(hyperion.dbx.using(list)).callback(
-        async function (s) {
-            let shipment = await getShipmentData(hyperion.dbx, hyperion.algorithm, s);
-            shipments.push(shipment);
-        });
-    return shipments;
-}
-
 async function updateShipmentByGuid(hyperion, data) {
-    const list = hyperion.dbx.Shipping.Shipment.ListByTime;
-    const found = await hyperion.algorithm.find(hyperion.dbx.using(list))
+    const list = hyperion.dbx.Shipping.Shipment.ListByGuid;
+    const found = await hyperion.algorithm.find(hyperion.dbx.using(list)
+        .from(data.guid).to(data.guid))
         .where(current => current.GUID === data.guid);
     if (found) {
         let editTrans = await hyperion.dbw.edit(found);
@@ -321,7 +312,6 @@ module.exports = {
     getCustomFieldsDefinitions: getCustomFieldsDefinitions,
     getContainedItems: getContainedItems,
     getShipmentsByGuid: getShipmentsByGuid,
-    getShipments: getShipments,
     updateShipmentByGuid: updateShipmentByGuid
 }
 

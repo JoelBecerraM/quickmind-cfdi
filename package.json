@@ -10,7 +10,6 @@
   "author": "Quickmind",
   "license": "MIT",
   "dependencies": {
-    "@magaya/hyperion-node": "^11.56.19",
     "@magaya/extension-fs-helper": "0.0.5",
     "commander": "^7.2.0",
     "express": "^4.18.2"

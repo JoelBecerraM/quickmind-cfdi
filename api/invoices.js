@@ -156,31 +156,22 @@ async function getInvoiceData(dbx, algorithm, i) {
 }
 
 async function getInvoicesByGuid(hyperion, guid) {
-    const list = hyperion.dbx.Accounting.Invoice.ListByTime;
-    const foundInvoice = await hyperion.algorithm.find(hyperion.dbx.using(list))
+    const list = hyperion.dbx.Accounting.Invoice.ListByGuid;
+    const found = await hyperion.algorithm.find(hyperion.dbx.using(list)
+        .from(guid).to(guid))
         .where(current => current.GUID === guid);
     let invoices = [];
-    if (foundInvoice) {
-        let invoice = await getInvoiceData(hyperion.dbx, hyperion.algorithm, foundInvoice);
+    if (found) {
+        let invoice = await getInvoiceData(hyperion.dbx, hyperion.algorithm, found);
         invoices.push(invoice);
     }
     return invoices;
 }
 
-async function getInvoices(hyperion) {
-    const list = hyperion.dbx.Accounting.Invoice.ListByTime;
-    let invoices = [];
-    await hyperion.algorithm.forEach(hyperion.dbx.using(list)).callback(
-        async function (i) {
-            let invoice = await getInvoiceData(hyperion.dbx, hyperion.algorithm, i);
-            invoices.push(invoice);
-        });
-    return invoices;
-}
-
 async function updateInvoiceByGuid(hyperion, data) {
-    const list = hyperion.dbx.Accounting.Invoice.ListByTime;
-    const found = await hyperion.algorithm.find(hyperion.dbx.using(list))
+    const list = hyperion.dbx.Accounting.Invoice.ListByGuid;
+    const found = await hyperion.algorithm.find(hyperion.dbx.using(list)
+        .from(data.guid).to(data.guid))
         .where(current => current.GUID === data.guid);
     if (found) {
         let editTrans = await hyperion.dbw.edit(found);
@@ -197,7 +188,6 @@ async function updateInvoiceByGuid(hyperion, data) {
 module.exports  = {
     getCustomFieldsDefinitions: getCustomFieldsDefinitions,
     getInvoicesByGuid: getInvoicesByGuid,
-    getInvoices: getInvoices,
     updateInvoiceByGuid: updateInvoiceByGuid
 }
 
