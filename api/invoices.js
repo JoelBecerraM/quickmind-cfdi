@@ -5,20 +5,19 @@
 
 async function getCustomFieldsDefinitions(dbx, algorithm, list) {
     let fields = [];
-    await algorithm.forEach(dbx.using(list)).callback(
-        async function (f) {
-            let field = {
-                Category: f.Category,
-                DbClassType: f.DbClassType,
-                DisplayName: f.DisplayName,
-                id: f.id,
-                InternalName: f.InternalName,
-                ObjectType: f.ObjectType,
-                Type: f.Type
-            };
-            fields.push(field);
-        });
-    return fields;
+    await algorithm.forEach(dbx.using(list)).callback(f => {
+        let field = {
+            Category: f.Category,
+            DbClassType: f.DbClassType,
+            DisplayName: f.DisplayName,
+            id: f.id,
+            InternalName: f.InternalName,
+            ObjectType: f.ObjectType,
+            Type: f.Type
+        };
+        fields.push(field);
+    });
+    return Promise.all(fields);
 }
 
 async function getCurrency(dbx, algorithm, c) {
@@ -31,38 +30,32 @@ async function getCurrency(dbx, algorithm, c) {
     return currency;
 }
 
-async function getChargeDefinition(dbx, algorithm, c) {
-    let charge = {
-        Amount: c.Amount,
-        Code: c.Code,
-        Currency: await getCurrency(dbx, algorithm, c.Currency),
-        CustomFieldDefinitions: c.CustomFieldDefinitions,
-        CustomFields: {
-            cfdi_claveunidad: c.CustomFields.cfdi_claveunidad,
-            cfdi_claveproductoservicio: c.CustomFields.cfdi_claveproductoservicio,
-            cfdi_unidadmedida: c.CustomFields.cfdi_unidadmedida
-            },
-        Description: c.Description
-    };
-    return charge;
-}
-
 async function getCharges(dbx, algorithm, list) {
     let charges = [];
-    await algorithm.forEach(dbx.using(list)).callback(
-        async function (c) {
-            let charge = {
-                Amount: c.Amount,
-                ChargeDefinition: await getChargeDefinition(dbx, algorithm, c.ChargeDefinition),
-                Price: c.Price,
-                Quantity: c.Quantity,
-                RetentionRate: c.RetentionRate,
-                TaxAmount: c.TaxAmount,
-                TaxRate: c.TaxRate
-            };
-            charges.push(charge);
-        });
-    return charges;
+    await algorithm.forEach(dbx.using(list)).callback(c => {
+        let charge = {
+            Amount: c.Amount,
+            ChargeDefinition: {
+                Amount: c.ChargeDefinition.Amount,
+                Code: c.ChargeDefinition.Code,
+                Currency: getCurrency(dbx, algorithm, c.ChargeDefinition.Currency),
+                CustomFieldDefinitions: c.ChargeDefinition.CustomFieldDefinitions,
+                CustomFields: {
+                    cfdi_claveunidad: c.ChargeDefinition.CustomFields.cfdi_claveunidad,
+                    cfdi_claveproductoservicio: c.ChargeDefinition.CustomFields.cfdi_claveproductoservicio,
+                    cfdi_unidadmedida: c.ChargeDefinition.CustomFields.cfdi_unidadmedida
+                    },
+                Description: c.ChargeDefinition.Description
+            },
+            Price: c.Price,
+            Quantity: c.Quantity,
+            RetentionRate: c.RetentionRate,
+            TaxAmount: c.TaxAmount,
+            TaxRate: c.TaxRate
+        };
+        charges.push(charge);
+    });
+    return Promise.all(charges);
 }
 
 function getAddress(s) {

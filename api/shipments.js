@@ -5,40 +5,19 @@
 
 async function getCustomFieldsDefinitions(dbx, algorithm, list) {
     let fields = [];
-    await algorithm.forEach(dbx.using(list)).callback(
-        async function (f) {
-            let field = {
-                Category: f.Category,
-                DbClassType: f.DbClassType,
-                DisplayName: f.DisplayName,
-                id: f.id,
-                InternalName: f.InternalName,
-                ObjectType: f.ObjectType,
-                Type: f.Type
-            };
-            fields.push(field);
-        });
-    return fields;
-}
-
-function getAddress(s) {
-    if (!s)
-        return undefined;
-    let address = {
-        City: s.City,
-        ContactEmail: s.ContactEmail,
-        ContactFax: s.ContactFax,
-        ContactName: s.ContactName,
-        ContactPhone: s.ContactPhone,
-        ContactPhoneExtension: s.ContactPhoneExtension,
-        CountryName: s.CountryName,
-        Description: s.Description,
-        id: s.id,
-        State: s.State,
-        Street: s.Street,
-        ZipCode: s.ZipCode
-    };
-    return address;
+    await algorithm.forEach(dbx.using(list)).callback(f => {
+        let field = {
+            Category: f.Category,
+            DbClassType: f.DbClassType,
+            DisplayName: f.DisplayName,
+            id: f.id,
+            InternalName: f.InternalName,
+            ObjectType: f.ObjectType,
+            Type: f.Type
+        };
+        fields.push(field);
+    });
+    return Promise.all(fields);
 }
 
 function getAddress(s) {
@@ -63,70 +42,68 @@ function getAddress(s) {
 
 async function getContainedItems(dbx, algorithm, list) {
     let items = [];
-    await algorithm.forEach(dbx.using(list)).callback(
-        async function (i) {
-            let item = {
-                CommodityTypeName: i.CommodityTypeName,
-                CustomFieldDefinitions: i.CustomFieldDefinitions,
-                CustomFields: {
-                    subtiporem: i.CustomFields.subtiporem,
-                    orden_remolque: i.CustomFields.orden_remolque,
-                    cp_moneda: i.CustomFields.cp_moneda,
-                    cp_pedimento: i.CustomFields.cp_pedimento
-                    },
-                Description: i.Description,
-                GUID: i.GUID,
-                Height: i.Height,
-                id: i.id,
-                IsDangerousGoods: i.IsDangerousGoods,
-                Length: i.Length,
-                Model: i.Model,
-                Package: {
-                    CustomFieldDefinitions: i.Package.CustomFieldDefinitions,
-                    CustomFields: {
-                        c_claveunidad: i.Package.CustomFields.c_claveunidad,
-                        c_tipoembalaje: i.Package.CustomFields.c_tipoembalaje                        
-                    },
+    await algorithm.forEach(dbx.using(list)).callback(i => {
+        let item = {
+            CommodityTypeName: i.CommodityTypeName,
+            CustomFieldDefinitions: i.CustomFieldDefinitions,
+            CustomFields: {
+                subtiporem: i.CustomFields.subtiporem,
+                orden_remolque: i.CustomFields.orden_remolque,
+                cp_moneda: i.CustomFields.cp_moneda,
+                cp_pedimento: i.CustomFields.cp_pedimento
                 },
-                PackageName: i.PackageName,
-                Pieces: i.Pieces,
-                SerialNumber: i.SerialNumber,
-                TotalValue: i.TotalValue,
-                Volume: i.Volume,
-                Weight: i.Weight,
-                Width: i.Width
+            Description: i.Description,
+            GUID: i.GUID,
+            Height: i.Height,
+            id: i.id,
+            IsDangerousGoods: i.IsDangerousGoods,
+            Length: i.Length,
+            Model: i.Model,
+            Package: {
+                CustomFieldDefinitions: i.Package.CustomFieldDefinitions,
+                CustomFields: {
+                    c_claveunidad: i.Package.CustomFields.c_claveunidad,
+                    c_tipoembalaje: i.Package.CustomFields.c_tipoembalaje                        
+                },
+            },
+            PackageName: i.PackageName,
+            Pieces: i.Pieces,
+            SerialNumber: i.SerialNumber,
+            TotalValue: i.TotalValue,
+            Volume: i.Volume,
+            Weight: i.Weight,
+            Width: i.Width
+        };
+        if (i.Hazardous) {
+            item["Hazardous"] = {
+                MaterialCode: i.Hazardous.MaterialCode,
+                MaterialDescription: i.Hazardous.MaterialDescription
             };
-            if (i.Hazardous) {
-                item["Hazardous"] = {
-                        MaterialCode: i.Hazardous.MaterialCode,
-                        MaterialDescription: i.Hazardous.MaterialDescription
-                    };
-            }
-            items.push(item);
-        });
-    return items;
+        }
+        items.push(item);
+    });
+    return Promise.all(items);
 }
 
 async function getShipmentItems(dbx, algorithm, list) {
     let items = [];
-    await algorithm.forEach(dbx.using(list)).callback(
-        async function (i) {
-            let item = {
-                ContainedItems: i.ContainedItems,
-                CustomFieldDefinitions: i.CustomFieldDefinitions,
-                CustomFields: {
-                    subtiporem: i.CustomFields.subtiporem,
-                    orden_remolque: i.CustomFields.orden_remolque
-                },
-                Description: i.Description,
-                GUID: i.GUID,
-                id: i.id,
-                PackageName: i.PackageName,
-                SerialNumber: i.SerialNumber
-            };
-            items.push(item);
-        });
-    return items;
+    await algorithm.forEach(dbx.using(list)).callback(i => {
+        let item = {
+            ContainedItems: i.ContainedItems,
+            CustomFieldDefinitions: i.CustomFieldDefinitions,
+            CustomFields: {
+                subtiporem: i.CustomFields.subtiporem,
+                orden_remolque: i.CustomFields.orden_remolque
+            },
+            Description: i.Description,
+            GUID: i.GUID,
+            id: i.id,
+            PackageName: i.PackageName,
+            SerialNumber: i.SerialNumber
+        };
+        items.push(item);
+    });
+    return Promise.all(items);
 }
 
 async function getContact(dbx, algorithm, c) {
