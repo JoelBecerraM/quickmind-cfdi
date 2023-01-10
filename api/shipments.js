@@ -106,7 +106,7 @@ async function getShipmentItems(dbx, algorithm, list) {
     return Promise.all(items);
 }
 
-async function getContact(dbx, algorithm, c) {
+function getContact(dbx, algorithm, c) {
     let contact = {
         AccountNumber: c.AccountNumber,
         CreationDate: c.CreationDate,
@@ -129,7 +129,7 @@ async function getContact(dbx, algorithm, c) {
     return contact;
 }
 
-async function getCarrier(dbx, algorithm, c) {
+function getCarrier(dbx, algorithm, c) {
     let carrier = {
         AccountNumber: c.AccountNumber,
         CreationDate: c.CreationDate,
@@ -156,7 +156,7 @@ async function getCarrier(dbx, algorithm, c) {
     return carrier;
 }
 
-async function getCustomer(dbx, algorithm, c) {
+function getCustomer(dbx, algorithm, c) {
     let customer = {
         AccountNumber: c.AccountNumber,
         CreationDate: c.CreationDate,
@@ -198,13 +198,13 @@ async function getShipmentData(dbx, algorithm, s) {
             de_tipoubicacion: s.CustomFields.de_tipoubicacion,
             de_idubicacion: s.CustomFields.de_idubicacion,
             distanciarecorrida: s.CustomFields.distanciarecorrida,
-            or_domicilio: await getCustomer(dbx, algorithm, s.CustomFields.or_domicilio),
-            de_domicilio: await getCustomer(dbx, algorithm, s.CustomFields.de_domicilio),
-            tr_domicilio: await getCarrier(dbx, algorithm, s.CustomFields.tr_domicilio),
+            or_domicilio: getCustomer(dbx, algorithm, s.CustomFields.or_domicilio),
+            de_domicilio: getCustomer(dbx, algorithm, s.CustomFields.de_domicilio),
+            tr_domicilio: getCarrier(dbx, algorithm, s.CustomFields.tr_domicilio),
             edit_anio_modelo: s.CustomFields.edit_anio_modelo,
             econfigvehicular: s.CustomFields.econfigvehicular,
             eparte_del_transporte: s.CustomFields.eparte_del_transporte,
-            op_domicilio: await getContact(dbx, algorithm, s.CustomFields.op_domicilio),
+            op_domicilio: getContact(dbx, algorithm, s.CustomFields.op_domicilio),
             transpinternac: s.CustomFields.transpinternac,
             paisorigendestino: s.CustomFields.paisorigendestino,
             tipofigura: s.CustomFields.tipofigura,

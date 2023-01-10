@@ -20,7 +20,7 @@ async function getCustomFieldsDefinitions(dbx, algorithm, list) {
     return Promise.all(fields);
 }
 
-async function getCurrency(dbx, algorithm, c) {
+function getCurrency(dbx, algorithm, c) {
     let currency = {
         DecimalPlaces: c.DecimalPlaces,
         ExchangeRate: c.ExchangeRate,
@@ -78,7 +78,7 @@ function getAddress(s) {
     return address;
 }
 
-async function getEntity(dbx, algorithm, e) {
+function getEntity(dbx, algorithm, e) {
     let entity = {
         Address: getAddress(e.Address),
         AccountNumber: e.AccountNumber,
@@ -109,7 +109,7 @@ async function getEntity(dbx, algorithm, e) {
     return entity;
 }
 
-async function getRelated(dbx, algorithm, r) {
+function getRelated(dbx, algorithm, r) {
     let related = {
         GUID: r.GUID,
         id: r.id,
@@ -133,7 +133,7 @@ async function getInvoiceData(dbx, algorithm, i) {
         CreatedOn: i.CreatedOn,
         CreationStamp: i.CreationStamp,
         DueDate: i.DueDate,
-        Entity: await getEntity(dbx, algorithm, i.Entity),
+        Entity: getEntity(dbx, algorithm, i.Entity),
         EntityName: i.EntityName,
         GUID: i.GUID,
         id: i.id,
@@ -142,7 +142,7 @@ async function getInvoiceData(dbx, algorithm, i) {
         TotalAmount: i.TotalAmount
     }
     if (i.RelatedObject) {
-        let related = await getRelated(dbx, algorithm, i.RelatedObject);
+        let related = getRelated(dbx, algorithm, i.RelatedObject);
         invoice.Related = related;
     }
     return invoice;
