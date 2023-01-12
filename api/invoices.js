@@ -55,7 +55,7 @@ async function getCharges(dbx, algorithm, list) {
         };
         charges.push(charge);
     });
-    return Promise.all(charges);
+    return charges;
 }
 
 function getAddress(s) {

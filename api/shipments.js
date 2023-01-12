@@ -82,7 +82,7 @@ async function getContainedItems(dbx, algorithm, list) {
         }
         items.push(item);
     });
-    return Promise.all(items);
+    return items;
 }
 
 async function getShipmentItems(dbx, algorithm, list) {
@@ -103,7 +103,7 @@ async function getShipmentItems(dbx, algorithm, list) {
         };
         items.push(item);
     });
-    return Promise.all(items);
+    return items;
 }
 
 function getContact(dbx, algorithm, c) {
