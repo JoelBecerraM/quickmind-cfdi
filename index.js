@@ -42,7 +42,7 @@ if (!hyperion.dbw) {
 
 const init = require('./helpers/initialize.js');
 
-init.initialize(hyperion).then(result => {
+init.initialize(hyperion, program).then(result => {
     if(result.success) {
         const express = require('express');
         const app = express();
@@ -122,11 +122,16 @@ init.initialize(hyperion).then(result => {
         
         // config routes
         app.get(`${options.root}/config`, function(request, response) {
-            let fileLoc = path.join(__dirname, "./config", "configuracion.json");
+            let fileLoc = path.join(process.env.ExtensionConfigFolder, "configuracion.json");
             let content = "{}";
             if (fs.existsSync(fileLoc)) {
                 content = fs.readFileSync(fileLoc, "utf8");
-            }
+            } else {
+                fileLoc = path.join(__dirname, "./config", "configuracion.json");
+                if (fs.existsSync(fileLoc)) {
+                    content = fs.readFileSync(fileLoc, "utf8");
+                }
+            } 
 
             response.setHeader("Content-Type", "application/json");
             response.send(JSON.parse(content));
@@ -134,7 +139,7 @@ init.initialize(hyperion).then(result => {
 
         app.post(`${options.root}/config`, function(request, response) {
             let result = {};
-            let fileLoc = path.join(__dirname, "./config", "configuracion.json");
+            let fileLoc = path.join(process.env.ExtensionConfigFolder, "configuracion.json");
             if (fs.writeFileSync(fileLoc, JSON.stringify(request.body), "utf8")) {
                 result["success"] = "OK";
             }

@@ -10,7 +10,6 @@ function initExtensionFolders (id, networkId) {
     if (!fs.existsSync(extensionConfigFolder)) {
         fs.mkdirSync(extensionConfigFolder);
     }
-    console.log(extensionConfigFolder);
     process.env.ExtensionConfigFolder = extensionConfigFolder;
 }
 

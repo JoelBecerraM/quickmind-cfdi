@@ -153,15 +153,16 @@ async function createCustomFields(hyperion) {
 
 }
 
-async function initialize(hyperion) {
+async function initialize(hyperion, program) {
     let result = {
         success: false,
         error: ""
     };
 
     try {
-        ////let idExt = { company: "quickmind", name: "cfdi" };
-        ////fm.initExtensionFolders(idExt, program.networkId);
+        let idExt = { company: "quickmind", name: "cfdi" };
+        let options = program.opts();
+        fm.initExtensionFolders(idExt, options.networkId);
 
         createCustomFields(hyperion);
 
