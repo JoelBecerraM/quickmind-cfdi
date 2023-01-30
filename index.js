@@ -41,8 +41,9 @@ if (!hyperion.dbw) {
 }
 
 const init = require('./helpers/initialize.js');
+const fm = require('./helpers/fileManager.js');
 
-init.initialize(hyperion, program).then(result => {
+init.initialize(hyperion, program, fm).then(result => {
     if(result.success) {
         const express = require('express');
         const app = express();
@@ -94,6 +95,26 @@ init.initialize(hyperion, program).then(result => {
             response.send(result);
         });
 
+        app.put(`${options.root}/invoices`, async function(request, response) {
+            let result = {};
+
+            let resultSave;
+            let fileNameXML = request.body.tipodocumento+"_"+request.body.documento+".xml";
+            resultSave = fm.saveFileBase64(fileNameXML, request.body.xml);
+            result["xml"] = resultSave.file;
+            let fileNamePDF = request.body.tipodocumento+"_"+request.body.documento+".pdf";
+            resultSave = fm.saveFileBase64(fileNamePDF, request.body.pdf);
+            result["pdf"] = resultSave.file;
+
+            await invo.saveAttachmentsInvoiceByGuid(hyperion, request.body, result.xml, result.pdf);
+            fm.deleteFile(result.xml);            
+            fm.deleteFile(result.pdf);            
+            result["success"] = "OK";
+            
+            response.setHeader("Content-Type", "application/json");
+            response.send(result);
+        });
+
         app.get(`${options.root}/shipments`, async function(request, response) {
             const queryParams = url.parse(request.url, true).query;
         
@@ -120,6 +141,26 @@ init.initialize(hyperion, program).then(result => {
             response.send(result);
         });
         
+        app.put(`${options.root}/shipments`, async function(request, response) {
+            let result = {};
+
+            let resultSave;
+            let fileNameXML = request.body.tipodocumento+"_"+request.body.documento+".xml";
+            resultSave = fm.saveFileBase64(fileNameXML, request.body.xml);
+            result["xml"] = resultSave.file;
+            let fileNamePDF = request.body.tipodocumento+"_"+request.body.documento+".pdf";
+            resultSave = fm.saveFileBase64(fileNamePDF, request.body.pdf);
+            result["pdf"] = resultSave.file;
+
+            await ship.saveAttachmentsShipmentByGuid(hyperion, request.body, result.xml, result.pdf);
+            fm.deleteFile(result.xml);            
+            fm.deleteFile(result.pdf);            
+            result["success"] = "OK";
+            
+            response.setHeader("Content-Type", "application/json");
+            response.send(result);
+        });
+
         // config routes
         app.get(`${options.root}/config`, function(request, response) {
             let fileLoc = path.join(process.env.ExtensionConfigFolder, "configuracion.json");

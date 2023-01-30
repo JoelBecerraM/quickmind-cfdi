@@ -1,6 +1,4 @@
 
-const fm = require('./fileManager.js');
-
 async function addCustomField(hyperion, InternalName, DisplayName, Category, ObjectType, Type, callback, description) {
     if (!ObjectType)
         return;
@@ -47,7 +45,7 @@ async function addCustomField(hyperion, InternalName, DisplayName, Category, Obj
     }
 }
 
-async function createCustomFields(hyperion) {
+async function createCustomFields(hyperion, fm) {
     let category = 'CFDI';
 
     let regimenfiscal = fm.textToArray("regimenfiscal.txt");
@@ -153,7 +151,7 @@ async function createCustomFields(hyperion) {
 
 }
 
-async function initialize(hyperion, program) {
+async function initialize(hyperion, program, fm) {
     let result = {
         success: false,
         error: ""
@@ -164,7 +162,7 @@ async function initialize(hyperion, program) {
         let options = program.opts();
         fm.initExtensionFolders(idExt, options.networkId);
 
-        createCustomFields(hyperion);
+        createCustomFields(hyperion, fm);
 
         result.success = true;
         result.error = undefined;

@@ -497,6 +497,40 @@ function post(url, data, done, fail, message) {
     });
 }
 
+function put(url, data, done, fail, message) {
+    $.ajax({
+        url: url,
+        method: "put",
+        beforeSend: function() {
+            wmp();
+        },
+        data: data
+    }).done(function(response, textStatus, jqXHR) {
+        cwmp();
+        if (jqXHR.status===205) {
+            var complete = function() {
+                top.location = index;
+            };
+            warning("La sesion no existe o ha expirado, para continuar debe de iniciar su sesión nuevamente.", complete);
+            return;
+        }
+        if (response.error) {
+            if (message) {
+                message(response);
+                return;
+            }
+            error(response.mensaje);
+            return;
+        }
+        if (done)
+            done(response);
+    }).fail(function(err) {
+        cwmp();
+        if (fail)
+            fail(err);
+    });
+}
+
 function notify(msg, $div) {
     if (!$div)
         $div = $("#notify-div");

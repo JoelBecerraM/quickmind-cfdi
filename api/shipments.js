@@ -285,11 +285,54 @@ async function updateShipmentByGuid(hyperion, data) {
     }
 }
 
+async function saveAttachmentsShipmentByGuid(hyperion, data, fileXML, filePDF) {
+    const list = hyperion.dbx.Shipping.Shipment.ListByGuid;
+    const found = await hyperion.algorithm.find(hyperion.dbx.using(list)
+        .from(data.guid).to(data.guid))
+        .where(current => current.GUID === data.guid);
+    if (found) {
+        let existeAttXML = false;
+        let existeAttPDF = false;
+        
+        await hyperion.algorithm.forEach(hyperion.dbx.using(found.Attachments)).callback(a => {
+            let fileName = a.Name+"."+a.Extension;
+
+            let fileNameXML = ""+fileXML;
+            if (fileNameXML.length>=fileName.length)
+                fileNameXML = fileNameXML.substring(fileNameXML.length - fileName.length);
+            let fileNamePDF = ""+filePDF;
+            if (fileNamePDF.length>=fileName.length)
+                fileNamePDF = fileNamePDF.substring(fileNamePDF.length - fileName.length);
+    
+            if (fileNameXML===fileName)
+                existeAttXML = true;
+            if (fileNamePDF===fileName)
+                existeAttPDF = true;
+        });
+
+        if (!existeAttXML||!existeAttPDF) {
+            let editTrans = await hyperion.dbw.edit(found);
+
+            if (!existeAttXML) {
+                let attXML = new hyperion.dbx.DbClass.Attachment(fileXML);
+                hyperion.dbx.insert(editTrans.Attachments, attXML);
+            }
+            if (!existeAttPDF) {
+                let attPDF = new hyperion.dbx.DbClass.Attachment(filePDF);
+                hyperion.dbx.insert(editTrans.Attachments, attPDF);
+            }
+            
+            await hyperion.dbw.save(editTrans);
+        }
+    }
+}
+
 module.exports = {    
     getCustomFieldsDefinitions: getCustomFieldsDefinitions,
     getContainedItems: getContainedItems,
     getShipmentsByGuid: getShipmentsByGuid,
-    updateShipmentByGuid: updateShipmentByGuid
+    updateShipmentByGuid: updateShipmentByGuid,
+    saveAttachmentsShipmentByGuid: saveAttachmentsShipmentByGuid
 }
 
 //

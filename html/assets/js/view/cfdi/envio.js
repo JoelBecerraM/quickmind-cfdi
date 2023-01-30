@@ -202,6 +202,11 @@ function habilitaDescarga() {
     $("#btn-xml").click(function() {
         descargaDocumento("downloadXML");
     });
+
+    $("#btn-attach").removeAttr("disabled");
+    $("#btn-attach").click(function() {
+        guardaAttachments();
+    });
 }
 
 function descargaDocumento(tipo) {
@@ -225,4 +230,84 @@ function descargaDocumento(tipo) {
     };
     var params = "compania="+config.compania+"&tipodocumento="+tipodocumento+"&documento="+documento;
     download(config.endpoint+"/Documento?tipo="+tipo+"&"+params, complete);
+}
+
+function guardaAttachments() {
+    let $compania = $("#datos-form [name='compania']");
+    let dataconfig = $compania.attr("data-record");
+    if (dataconfig==="") {
+        error("No puedo recuperar la configuracion.");
+        return;
+    }
+
+    let config = JSON.parse(dataconfig);
+
+    let $tipodocumento = $("#datos-form [name='tipodocumento']");
+    let tipodocumento = $tipodocumento.val();
+
+    let $documento = $("#datos-form [name='documento']");
+    let documento = $documento.val();
+
+    guardaAttachmentsConfirmado(config, tipodocumento, documento);
+}    
+
+function guardaAttachmentsConfirmado(config, tipodocumento, documento) {
+    var url = config.endpoint+"/v2/API";
+    var json = {
+        accion: "descargaDocumento", 
+        compania: config.compania, 
+        usuario: config.usuario, 
+        token: config.apikey, 
+        tipodocumento: tipodocumento,
+        documento: documento
+    };
+
+    var data = {
+        json: JSON.stringify(json)
+    };
+
+    var onFail = function(err) {
+        error("Error al descargar el Documento.<br><br><b>("+err.status+") "+err.statusText+"</b>");
+    };
+    var onError = function(response) {
+        if (response.exception.indexOf("WebException")!==-1) {
+            notify_warning(response.mensaje);
+        } else {
+            notify_error(response.exception);
+        }
+    };
+    var onComplete = function(response) {
+        guardaAttachmentsConfirmadoII(response);
+    };
+    notify("Descargando Documento ...");
+    post(url, data, onComplete, onFail, onError);
+}
+
+function guardaAttachmentsConfirmadoII(response) {
+    let $guid = $("#datos-form [name='guid']");
+    var guid = $guid.val();
+
+    var data = {
+        guid: guid,
+        tipodocumento: response.tipodocumento,
+        documento: response.documento,
+        xml: response.xml,
+        pdf: response.pdf
+    };
+
+    var onFail = function(err) {
+        error("Error al guardar el Adjunto.<br><br><b>("+err.status+") "+err.statusText+"</b>");
+    };
+    var onError = function(response) {
+        if (response.exception.indexOf("WebException")!==-1) {
+            notify_warning(response.mensaje);
+        } else {
+            notify_error(response.exception);
+        }
+    };
+    var onComplete = function(response) {
+        notify("Documento Descargado Correctamente.");
+        success("Documento Descargado Correctamente.");
+    };
+    put("shipments", data, onComplete, onFail, onError);
 }
