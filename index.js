@@ -62,6 +62,9 @@ init.initialize(hyperion, program, fm).then(result => {
         app.get(`${options.root}/invoices`, async function(request, response) {
             const queryParams = url.parse(request.url, true).query;
             
+            console.log("GET /invoices");
+            console.log(queryParams)
+
             let invoices = await invo.getInvoicesByGuid(hyperion, queryParams.op);            
             // Busqueda de relacionados
             for (var i=0; i < invoices.length; i++) {
@@ -118,6 +121,9 @@ init.initialize(hyperion, program, fm).then(result => {
         app.get(`${options.root}/shipments`, async function(request, response) {
             const queryParams = url.parse(request.url, true).query;
         
+            console.log("GET /shipments");
+            console.log(queryParams)
+
             // JBM: Es necesario la busqueda de segundo nivel
             let shipments = await ship.getShipmentsByGuid(hyperion, queryParams.op);
             for (var i=0; i < shipments.length; i++) {
@@ -127,7 +133,7 @@ init.initialize(hyperion, program, fm).then(result => {
                     shipments[i].PackingListItems[j].ContainedItems = containeditems;
                 }
             }
-        
+            
             response.setHeader("Content-Type", "application/json");
             response.send(shipments);
         });

@@ -1,5 +1,6 @@
 
 function initConfiguracion() {
+    $("#url").html(location.href);
 
     var onComplete = function(response) {
         setFormValues($("#datos-form"), response);
