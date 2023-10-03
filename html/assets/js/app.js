@@ -9,6 +9,27 @@ function viewMain() {
     loadMainContainer("assets/view/main.html", onComplete);
 }
 
+function viewPago(params) {
+    var state = {
+        func: "_viewPago",
+        params: params
+    };
+    pushState(state);
+
+    _viewPago(params);
+}
+
+function _viewPago(params) {
+    function onComplete() {
+        function onCompleteII() {
+            initPago(params);
+        };
+        loadScript("assets/js/view/cfdi/pago.js", onCompleteII);
+    };
+
+    loadMainContainer("assets/view/cfdi/pago.html", onComplete);
+}
+
 function viewFactura(params) {
     var state = {
         func: "_viewFactura",
@@ -253,6 +274,8 @@ function initApp() {
     } else {
         if (params.view==="config")
             viewConfiguracion();
+        else if (params.view==="payment")
+            viewPago(params);
         else if (params.view==="invoice")
             viewFactura(params);
         else if (params.view==="shipment")

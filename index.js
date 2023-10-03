@@ -50,6 +50,7 @@ init.initialize(hyperion, program, fm).then(result => {
         const url = require('url');
         const ship = require('./api/shipments.js');
         const invo = require('./api/invoices.js');
+        const paym = require('./api/payments.js');
         const path = require('path');
         const fs = require('fs');
         
@@ -59,6 +60,61 @@ init.initialize(hyperion, program, fm).then(result => {
         app.use(`${options.root}/`, express.static(path.join(__dirname, 'html')));
 
         // api routes
+        app.get(`${options.root}/payments`, async function(request, response) {
+            const queryParams = url.parse(request.url, true).query;
+            
+            console.log("GET /payments");
+            console.log(queryParams)
+
+            let payments = await paym.getPaymentsByGuid(hyperion, queryParams.op); 
+            // Busqueda de facturas
+            for (var i=0; i < payments.length; i++) {
+                console.log(payments[i].PaymentItems);     
+                if (payments[i].PaymentItems) {
+                    // Se supone que es un Invoice, asi que lo busco
+                    for (var j=0; j<payments[i].PaymentItems.length; j++) {
+                        let guid = payments[i].PaymentItems[j].GUID;
+                        let invoices = await invo.getInvoicesByGuid(hyperion, guid);
+                        if (invoices.length>0) {
+                            payments[i].PaymentItems[j].Invoice = invoices[0];
+                        }
+                    }
+                }
+            }
+            response.setHeader("Content-Type", "application/json");
+            response.send(payments);
+        });
+
+        app.post(`${options.root}/payments`, async function(request, response) {
+            let result = {};
+            await paym.updatePaymentByGuid(hyperion, request.body);
+            result["success"] = "OK";
+            
+            response.setHeader("Content-Type", "application/json");
+            response.send(result);
+        });
+
+        app.put(`${options.root}/payments`, async function(request, response) {
+            let result = {};
+
+            let resultSave;
+            let fileNameXML = request.body.tipodocumento+"_"+request.body.documento+".xml";
+            resultSave = fm.saveFileBase64(fileNameXML, request.body.xml);
+            result["xml"] = resultSave.file;
+            let fileNamePDF = request.body.tipodocumento+"_"+request.body.documento+".pdf";
+            resultSave = fm.saveFileBase64(fileNamePDF, request.body.pdf);
+            result["pdf"] = resultSave.file;
+
+            await paym.saveAttachmentsInvoiceByGuid(hyperion, request.body, result.xml, result.pdf);
+            fm.deleteFile(result.xml);            
+            fm.deleteFile(result.pdf);            
+            result["success"] = "OK";
+            
+            response.setHeader("Content-Type", "application/json");
+            response.send(result);
+        });
+
+
         app.get(`${options.root}/invoices`, async function(request, response) {
             const queryParams = url.parse(request.url, true).query;
             

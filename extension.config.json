@@ -36,6 +36,18 @@
                     "launch": "internal"
                 }
             ]},
+            "payment": {
+                "menuEntries": [{
+                    "category": "Actions",
+                    "title": "Timbrar",
+                    "selection": "single",
+                    "type": "url",
+                    "method": "GET",
+                    "path": "/index.html?view=payment&op={operation-guid}",
+                    "pathType":"cs-relative",
+                    "launch": "internal"
+                }
+            ]},
             "invoice": {
                 "menuEntries": [{
                     "category": "Actions",

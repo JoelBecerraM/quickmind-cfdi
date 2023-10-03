@@ -149,6 +149,37 @@ async function createCustomFields(hyperion, fm) {
         hyperion.dbx.Common.DbClassType.Invoice, hyperion.dbx.CustomField.Definition.DataType.String, 
         fieldOptions, "UUID");
 
+    await addCustomField(hyperion, "cfdi_tipodocumento", "Tipo Documento", category, 
+        hyperion.dbx.Common.DbClassType.Payment, hyperion.dbx.CustomField.Definition.DataType.String, 
+        fieldOptions, "Tipo Documento");
+
+    await addCustomField(hyperion, "cfdi_documento", "Documento", category, 
+        hyperion.dbx.Common.DbClassType.Payment, hyperion.dbx.CustomField.Definition.DataType.String, 
+        fieldOptions, "Documento");
+
+    await addCustomField(hyperion, "cfdi_fecha", "Fecha", category, 
+        hyperion.dbx.Common.DbClassType.Payment, hyperion.dbx.CustomField.Definition.DataType.String, 
+        fieldOptions, "Fecha");
+
+    await addCustomField(hyperion, "cfdi_uuid", "UUID", category, 
+        hyperion.dbx.Common.DbClassType.Payment, hyperion.dbx.CustomField.Definition.DataType.String, 
+        fieldOptions, "UUID");
+
+    await addCustomField(hyperion, "cfdi_formadepago", "Forma de Pago",  category, 
+        hyperion.dbx.Common.DbClassType.Payment, hyperion.dbx.CustomField.Definition.DataType.PickList, 
+        formadepagoOptions, "Forma de Pago");
+
+    await addCustomField(hyperion, "cfdi_numoperacion", "Numero de Operacion", category, 
+        hyperion.dbx.Common.DbClassType.Payment, hyperion.dbx.CustomField.Definition.DataType.String, 
+        fieldOptions, "Numero de Operacion");
+    
+    await addCustomField(hyperion, "cfdi_rfcbeneficiario", "RFC Beneficiario", category, 
+        hyperion.dbx.Common.DbClassType.Payment, hyperion.dbx.CustomField.Definition.DataType.String, 
+        fieldOptions, "RFC Beneficiario");
+
+    await addCustomField(hyperion, "cfdi_ctabeneficiario", "Cuenta Beneficiario", category, 
+        hyperion.dbx.Common.DbClassType.Payment, hyperion.dbx.CustomField.Definition.DataType.String, 
+        fieldOptions, "Cuenta Beneficiario");
 }
 
 async function initialize(hyperion, program, fm) {
