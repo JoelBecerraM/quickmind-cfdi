@@ -132,6 +132,7 @@ async function getInvoiceData(dbx, algorithm, i) {
         Charges: await getCharges(dbx, algorithm, i.Charges),
         CreatedOn: i.CreatedOn,
         CreationStamp: i.CreationStamp,
+        DbClassType: i.DbClassType,
         DueDate: i.DueDate,
         Entity: getEntity(dbx, algorithm, i.Entity),
         EntityName: i.EntityName,
