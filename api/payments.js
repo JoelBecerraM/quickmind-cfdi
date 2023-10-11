@@ -103,6 +103,7 @@ async function getPaymentData(dbx, algorithm, p) {
             },
         CreatedOn: p.CreatedOn,
         CreationStamp: p.CreationStamp,
+        DbClassType: p.DbClassType,
         Entity: getEntity(dbx, algorithm, p.Entity),
         EntityName: p.EntityName,
         GUID: p.GUID,
