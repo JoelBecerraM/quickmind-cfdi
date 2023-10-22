@@ -44,8 +44,15 @@ async function getCharges(dbx, algorithm, list) {
                     cfdi_claveunidad: c.ChargeDefinition.CustomFields.cfdi_claveunidad,
                     cfdi_claveproductoservicio: c.ChargeDefinition.CustomFields.cfdi_claveproductoservicio,
                     cfdi_unidadmedida: c.ChargeDefinition.CustomFields.cfdi_unidadmedida
-                    },
+                },
                 Description: c.ChargeDefinition.Description
+            },
+            CustomFieldDefinitions: c.CustomFieldDefinitions,
+            CustomFields: {
+                cfdi_rfctercero: c.CustomFields.cfdi_rfctercero,
+                cfdi_nombretercero: c.CustomFields.cfdi_nombretercero,
+                cfdi_domiciliotercero: c.CustomFields.cfdi_domiciliotercero,
+                cfdi_regimenfiscaltercero: c.CustomFields.cfdi_regimenfiscaltercero
             },
             Price: c.Price,
             Quantity: c.Quantity,

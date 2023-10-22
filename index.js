@@ -114,7 +114,6 @@ init.initialize(hyperion, program, fm).then(result => {
             response.send(result);
         });
 
-
         app.get(`${options.root}/invoices`, async function(request, response) {
             const queryParams = url.parse(request.url, true).query;
             

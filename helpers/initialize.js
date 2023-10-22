@@ -180,6 +180,22 @@ async function createCustomFields(hyperion, fm) {
     await addCustomField(hyperion, "cfdi_ctabeneficiario", "Cuenta Beneficiario", category, 
         hyperion.dbx.Common.DbClassType.Payment, hyperion.dbx.CustomField.Definition.DataType.String, 
         fieldOptions, "Cuenta Beneficiario");
+
+    await addCustomField(hyperion, "cfdi_rfctercero", "RFC A Cuenta Tercero", category, 
+        hyperion.dbx.Common.DbClassType.Charge, hyperion.dbx.CustomField.Definition.DataType.String, 
+        fieldOptions, "RFC A Cuenta Tercero");
+
+    await addCustomField(hyperion, "cfdi_nombretercero", "Nombre A Cuenta Tercero", category, 
+        hyperion.dbx.Common.DbClassType.Charge, hyperion.dbx.CustomField.Definition.DataType.String, 
+        fieldOptions, "Nombre A Cuenta Tercero");
+
+    await addCustomField(hyperion, "cfdi_domiciliotercero", "Domicilio Fiscal A Cuenta Tercero", category, 
+        hyperion.dbx.Common.DbClassType.Charge, hyperion.dbx.CustomField.Definition.DataType.String, 
+        fieldOptions, "Domicilio Fiscal A Cuenta Tercero");
+
+    await addCustomField(hyperion, "cfdi_regimenfiscaltercero", "Regimen Fiscal A Cuenta Tercero", category, 
+        hyperion.dbx.Common.DbClassType.Charge, hyperion.dbx.CustomField.Definition.DataType.String, 
+        fieldOptions, "Regimen Fiscal A Cuenta Tercero");
 }
 
 async function initialize(hyperion, program, fm) {
