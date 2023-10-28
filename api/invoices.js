@@ -22,6 +22,7 @@ async function getCustomFieldsDefinitions(dbx, algorithm, list) {
 
 function getCurrency(dbx, algorithm, c) {
     let currency = {
+        Code: c.Code,
         DecimalPlaces: c.DecimalPlaces,
         ExchangeRate: c.ExchangeRate,
         Name: c.Name,
@@ -35,10 +36,9 @@ async function getCharges(dbx, algorithm, list) {
     await algorithm.forEach(dbx.using(list)).callback(c => {
         let charge = {
             Amount: c.Amount,
+            AmountInCurrency: c.AmountInCurrency,
             ChargeDefinition: {
-                Amount: c.ChargeDefinition.Amount,
                 Code: c.ChargeDefinition.Code,
-                Currency: getCurrency(dbx, algorithm, c.ChargeDefinition.Currency),
                 CustomFieldDefinitions: c.ChargeDefinition.CustomFieldDefinitions,
                 CustomFields: {
                     cfdi_claveunidad: c.ChargeDefinition.CustomFields.cfdi_claveunidad,
@@ -54,10 +54,13 @@ async function getCharges(dbx, algorithm, list) {
                 cfdi_domiciliotercero: c.CustomFields.cfdi_domiciliotercero,
                 cfdi_regimenfiscaltercero: c.CustomFields.cfdi_regimenfiscaltercero
             },
+            Currency: getCurrency(dbx, algorithm, c.Currency),
             Price: c.Price,
+            PriceInCurrency: c.PriceInCurrency,
             Quantity: c.Quantity,
             RetentionRate: c.RetentionRate,
             TaxAmount: c.TaxAmount,
+            TaxAmountInCurrency: c.TaxAmountInCurrency,
             TaxRate: c.TaxRate
         };
         charges.push(charge);
@@ -139,6 +142,7 @@ async function getInvoiceData(dbx, algorithm, i) {
         Charges: await getCharges(dbx, algorithm, i.Charges),
         CreatedOn: i.CreatedOn,
         CreationStamp: i.CreationStamp,
+        Currency: getCurrency(dbx, algorithm, i.Currency),
         DbClassType: i.DbClassType,
         DueDate: i.DueDate,
         Entity: getEntity(dbx, algorithm, i.Entity),
@@ -147,7 +151,9 @@ async function getInvoiceData(dbx, algorithm, i) {
         id: i.id,
         IsFiscalPrinted: i.IsFiscalPrinted,
         TaxAmount: i.TaxAmount,
-        TotalAmount: i.TotalAmount
+        TaxAmountInCurrency: i.TaxAmountInCurrency,
+        TotalAmount: i.TotalAmount,
+        TotalAmountInCurrency: i.TotalAmountInCurrency
     }
     if (i.RelatedObject) {
         let related = getRelated(dbx, algorithm, i.RelatedObject);

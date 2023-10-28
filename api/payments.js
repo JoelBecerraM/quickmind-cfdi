@@ -20,13 +20,23 @@ async function getCustomFieldsDefinitions(dbx, algorithm, list) {
     return Promise.all(fields);
 }
 
+function getCurrency(dbx, algorithm, c) {
+    let currency = {
+        Code: c.Code,
+        DecimalPlaces: c.DecimalPlaces,
+        ExchangeRate: c.ExchangeRate,
+        Name: c.Name,
+        Symbol: c.Symbol
+    };
+    return currency;
+}
+
 async function getPaymentItems(dbx, algorithm, list) {
     let paymentItems = [];
     await algorithm.forEach(dbx.using(list)).callback(pi => {
-        //console.log(pi);
-        //console.log(pi.ItemPaid);
         let paymentItem = {
             AmountPaid: pi.AmountPaid,
+            AmountPaidInCurrency: pi.AmountPaidInCurrency,
             IsPaid: pi.IsPaid,
             GUID: pi.ItemPaid.GUID,
             Invoice: {}
@@ -88,7 +98,6 @@ function getEntity(dbx, algorithm, e) {
 }
 
 async function getPaymentData(dbx, algorithm, p) {
-    //console.log(p);
     let payment = {
         CustomFieldDefinitions: p.CustomFieldDefinitions,
         CustomFields: {
@@ -103,6 +112,7 @@ async function getPaymentData(dbx, algorithm, p) {
             },
         CreatedOn: p.CreatedOn,
         CreationStamp: p.CreationStamp,
+        Currency: getCurrency(dbx, algorithm, p.Currency),
         DbClassType: p.DbClassType,
         Entity: getEntity(dbx, algorithm, p.Entity),
         EntityName: p.EntityName,
@@ -111,7 +121,8 @@ async function getPaymentData(dbx, algorithm, p) {
         Notes: p.Notes,
         Number: p.Number,
         PaymentItems: await getPaymentItems(dbx, algorithm, p.PaymentItems),
-        TotalAmount: p.TotalAmount
+        TotalAmount: p.TotalAmount,
+        TotalAmountInCurrency: p.TotalAmountInCurrency
     };
     return payment;
 }

@@ -69,7 +69,6 @@ init.initialize(hyperion, program, fm).then(result => {
             let payments = await paym.getPaymentsByGuid(hyperion, queryParams.op); 
             // Busqueda de facturas
             for (var i=0; i < payments.length; i++) {
-                console.log(payments[i].PaymentItems);     
                 if (payments[i].PaymentItems) {
                     // Se supone que es un Invoice, asi que lo busco
                     for (var j=0; j<payments[i].PaymentItems.length; j++) {
