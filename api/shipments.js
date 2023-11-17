@@ -3,31 +3,9 @@
 //
 //
 
-async function getCustomFieldsDefinitions(dbx, algorithm, list) {
-    //console.log("getCustomFieldsDefinitions");
-    let fields = [];
-    await algorithm.forEach(dbx.using(list)).callback(f => {
-        //console.log("  "+f.id);
-        //console.log("  "+f.InternalName);
-        let field = {
-            Category: f.Category,
-            DbClassType: f.DbClassType,
-            DisplayName: f.DisplayName,
-            id: f.id,
-            InternalName: f.InternalName,
-            ObjectType: f.ObjectType,
-            Type: f.Type
-        };
-        fields.push(field);
-    });
-    return Promise.all(fields);
-}
-
 function getAddress(s) {
-    //console.log("getAddress");
     if (!s)
         return undefined;
-    //console.log("\t"+s.id);
     let address = {
         City: s.City,
         ContactEmail: s.ContactEmail,
@@ -42,17 +20,12 @@ function getAddress(s) {
         Street: s.Street,
         ZipCode: s.ZipCode
     };
-    //console.log("\t"+JSON.stringify(address));
     return address;
 }
 
 async function getContainedItems(dbx, algorithm, list) {
-    //console.log("getContainedItems");
     let items = [];
     await algorithm.forEach(dbx.using(list)).callback(i => {
-        //console.log("\t"+i.GUID);
-        //console.log("\t"+i.Description);
-        //console.log("\t"+i.PackageName);
         let item = {
             CommodityTypeName: i.CommodityTypeName,
             CustomFieldDefinitions: i.CustomFieldDefinitions,
@@ -92,16 +65,12 @@ async function getContainedItems(dbx, algorithm, list) {
         }
         items.push(item);
     });
-    //console.log("\t"+JSON.stringify(items));
     return items;
 }
 
 async function getShipmentItems(dbx, algorithm, list) {
-    //console.log("getShipmentItems");
     let items = [];
     await algorithm.forEach(dbx.using(list)).callback(i => {
-        //console.log("\t"+i.GUID);
-        //console.log("\t"+i.Description);
         let item = {
             ContainedItems: i.ContainedItems,
             CustomFieldDefinitions: i.CustomFieldDefinitions,
@@ -117,14 +86,10 @@ async function getShipmentItems(dbx, algorithm, list) {
         };
         items.push(item);
     });
-    //console.log("\t"+JSON.stringify(items));
     return items;
 }
 
 function getContact(dbx, algorithm, c) {
-    //console.log("getContact");
-    //console.log("\t"+c.GUID);
-    //console.log("\t"+c.Name);
     let contact = {
         AccountNumber: c.AccountNumber,
         CreationDate: c.CreationDate,
@@ -144,14 +109,10 @@ function getContact(dbx, algorithm, c) {
         id: c.id,
         Name: c.Name
     };
-    //console.log("\t"+JSON.stringify(contact));
     return contact;
 }
 
 function getCarrier(dbx, algorithm, c) {
-    //console.log("getCarrier");
-    //console.log("\t"+c.GUID);
-    //console.log("\t"+c.Name);
     let carrier = {
         AccountNumber: c.AccountNumber,
         CreationDate: c.CreationDate,
@@ -175,14 +136,10 @@ function getCarrier(dbx, algorithm, c) {
         id: c.id,
         Name: c.Name
     };
-    //console.log("\t"+JSON.stringify(carrier));
     return carrier;
 }
 
 function getCustomer(dbx, algorithm, c) {
-    //console.log("getCustomer");
-    //console.log("\t"+c.GUID);
-    //console.log("\t"+c.Name);
     let customer = {
         AccountNumber: c.AccountNumber,
         CreationDate: c.CreationDate,
@@ -202,7 +159,6 @@ function getCustomer(dbx, algorithm, c) {
         id: c.id,
         Name: c.Name
     };
-    //console.log("\t"+JSON.stringify(customer));
     return customer;
 }
 
@@ -210,10 +166,6 @@ async function getShipmentData(dbx, algorithm, s) {
     console.log("getShipmentData");
     console.log("\t"+s.GUID);
     console.log("\t"+s.Name);
-    //
-    //let customFieldsDefinitions = await getCustomFieldsDefinitions(dbx, algorithm, s.CustomFieldDefinitions);
-    //console.log(customFieldsDefinitions);
-    //
     let shipment = {
         CreatedByName: s.CreatedByName,
         CustomFieldDefinitions: s.CustomFieldDefinitions,
@@ -279,8 +231,6 @@ async function getShipmentData(dbx, algorithm, s) {
             Pais: s.DestinationPort.Country.CustomFields.c_pais
         }
     }
-    //console.log("return getShipmentData")
-    //console.log(JSON.stringify(shipment));
     return shipment;
 }
 
@@ -357,7 +307,6 @@ async function saveAttachmentsShipmentByGuid(hyperion, data, fileXML, filePDF) {
 }
 
 module.exports = {    
-    getCustomFieldsDefinitions: getCustomFieldsDefinitions,
     getContainedItems: getContainedItems,
     getShipmentsByGuid: getShipmentsByGuid,
     updateShipmentByGuid: updateShipmentByGuid,

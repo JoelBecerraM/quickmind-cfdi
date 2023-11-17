@@ -209,7 +209,7 @@ async function initialize(hyperion, program, fm) {
         let options = program.opts();
         fm.initExtensionFolders(idExt, options.networkId);
 
-        createCustomFields(hyperion, fm);
+        await createCustomFields(hyperion, fm);
 
         result.success = true;
         result.error = undefined;

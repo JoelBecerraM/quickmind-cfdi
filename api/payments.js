@@ -3,23 +3,6 @@
 //
 //
 
-async function getCustomFieldsDefinitions(dbx, algorithm, list) {
-    let fields = [];
-    await algorithm.forEach(dbx.using(list)).callback(f => {
-        let field = {
-            Category: f.Category,
-            DbClassType: f.DbClassType,
-            DisplayName: f.DisplayName,
-            id: f.id,
-            InternalName: f.InternalName,
-            ObjectType: f.ObjectType,
-            Type: f.Type
-        };
-        fields.push(field);
-    });
-    return Promise.all(fields);
-}
-
 function getCurrency(dbx, algorithm, c) {
     let currency = {
         Code: c.Code,
@@ -200,7 +183,6 @@ async function saveAttachmentsInvoiceByGuid(hyperion, data, fileXML, filePDF) {
 }
 
 module.exports  = {
-    getCustomFieldsDefinitions: getCustomFieldsDefinitions,
     getPaymentsByGuid: getPaymentsByGuid,
     updatePaymentByGuid: updatePaymentByGuid,
     saveAttachmentsInvoiceByGuid: saveAttachmentsInvoiceByGuid
