@@ -105,8 +105,8 @@ init.initialize(hyperion, program, fm).then(result => {
             result["pdf"] = resultSave.file;
 
             await paym.saveAttachmentsInvoiceByGuid(hyperion, request.body, result.xml, result.pdf);
-            fm.deleteFile(result.xml);            
-            fm.deleteFile(result.pdf);            
+            fm.deleteFile(result.xml);
+            fm.deleteFile(result.pdf);
             result["success"] = "OK";
             
             response.setHeader("Content-Type", "application/json");
@@ -164,8 +164,8 @@ init.initialize(hyperion, program, fm).then(result => {
             result["pdf"] = resultSave.file;
 
             await invo.saveAttachmentsInvoiceByGuid(hyperion, request.body, result.xml, result.pdf);
-            fm.deleteFile(result.xml);            
-            fm.deleteFile(result.pdf);            
+            fm.deleteFile(result.xml);
+            fm.deleteFile(result.pdf);
             result["success"] = "OK";
             
             response.setHeader("Content-Type", "application/json");
@@ -213,8 +213,8 @@ init.initialize(hyperion, program, fm).then(result => {
             result["pdf"] = resultSave.file;
 
             await ship.saveAttachmentsShipmentByGuid(hyperion, request.body, result.xml, result.pdf);
-            fm.deleteFile(result.xml);            
-            fm.deleteFile(result.pdf);            
+            fm.deleteFile(result.xml);
+            fm.deleteFile(result.pdf);
             result["success"] = "OK";
             
             response.setHeader("Content-Type", "application/json");

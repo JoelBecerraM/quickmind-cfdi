@@ -149,21 +149,29 @@ async function saveAttachmentsInvoiceByGuid(hyperion, data, fileXML, filePDF) {
         let existeAttXML = false;
         let existeAttPDF = false;
         
-        await hyperion.algorithm.forEach(hyperion.dbx.using(found.Attachments)).callback(a => {
-            let fileName = a.Name+"."+a.Extension;
+        if (found.Attachments) {
+            await hyperion.algorithm.forEach(hyperion.dbx.using(found.Attachments)).callback(a => {
+                let fileName ;
+                if (a.Name){
+                    fileName = a.Name + "." + a.Extension;
+                }
+                else if (a.Filename) {
+                    fileName = a.Filename + "." + a.FileExtension;
+                }
 
-            let fileNameXML = ""+fileXML;
-            if (fileNameXML.length>=fileName.length)
-                fileNameXML = fileNameXML.substring(fileNameXML.length - fileName.length);
-            let fileNamePDF = ""+filePDF;
-            if (fileNamePDF.length>=fileName.length)
-                fileNamePDF = fileNamePDF.substring(fileNamePDF.length - fileName.length);
-    
-            if (fileNameXML===fileName)
-                existeAttXML = true;
-            if (fileNamePDF===fileName)
-                existeAttPDF = true;
-        });
+                let fileNameXML = ""+fileXML;
+                if (fileNameXML.length>=fileName.length)
+                    fileNameXML = fileNameXML.substring(fileNameXML.length - fileName.length);
+                let fileNamePDF = ""+filePDF;
+                if (fileNamePDF.length>=fileName.length)
+                    fileNamePDF = fileNamePDF.substring(fileNamePDF.length - fileName.length);
+        
+                if (fileNameXML===fileName)
+                    existeAttXML = true;
+                if (fileNamePDF===fileName)
+                    existeAttPDF = true;
+            });
+        }
 
         if (!existeAttXML||!existeAttPDF) {
             let editTrans = await hyperion.dbw.edit(found);
