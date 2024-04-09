@@ -191,6 +191,7 @@ async function getShipmentData(dbx, algorithm, s) {
             econfigvehicular: s.CustomFields.econfigvehicular,
             eparte_del_transporte: s.CustomFields.eparte_del_transporte,
             op_domicilio: getContact(dbx, algorithm, s.CustomFields.op_domicilio),
+            cfdi_pesobrutovehicular: s.CustomFields.cfdi_pesobrutovehicular,
             cfdi_tipodocumento: s.CustomFields.cfdi_tipodocumento,
             cfdi_documento: s.CustomFields.cfdi_documento,
             cfdi_fecha: s.CustomFields.cfdi_fecha,

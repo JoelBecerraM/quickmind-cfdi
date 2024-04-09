@@ -117,6 +117,10 @@ async function createCustomFields(hyperion, fm) {
     let fieldOptions = (cf) => {
     };    
 
+    await addCustomField(hyperion, "cfdi_pesobrutovehicular", "Peso Bruto Vehicular", category, 
+        hyperion.dbx.Common.DbClassType.Shipment, hyperion.dbx.CustomField.Definition.DataType.String, 
+        fieldOptions, "Peso Bruto Vehicular");
+
     await addCustomField(hyperion, "cfdi_tipodocumento", "Tipo Documento", category, 
         hyperion.dbx.Common.DbClassType.Shipment, hyperion.dbx.CustomField.Definition.DataType.String, 
         fieldOptions, "Tipo Documento");
